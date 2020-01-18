@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" >
+	
+	<h:head>
+		<title>Cadastrar Filme</title>
+	</h:head>
+	
+	<h:body>
+		<h1>Cadastrar Filme</h1>
+		<p:messages closable="true"/>
+		<h:form>
+			<p:fieldset legend="Cadastrar Filme">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="titulo" value="Titulo: "/>
+					<p:inputText id="titulo" value="#{filmeBean.filme.titulo}"/>
+					<p:outputLabel for="duracao" value="Duracao: "/>
+					<p:inputText id="duracao" value="#{filmeBean.filme.duracao}"/>
+					<p:outputLabel for="dataLancamento" value="Data de lancamento "/>
+					<p:calendar id="dataLancamento" value="#{filmeBean.filme.datadLancamento}" pattern="dd/MM/yyyy"/>
+					<p:outputLabel for="faixaEtaria" value="Faixa etaria: "/>
+					<p:inputText id="faixaEtaria" value="#{filmeBean.filme.faixaEtaria}"/>
+					<p:outputLabel for="nota" value="Nota: "/>
+					<p:inputText id="nota" value="#{filmeBean.filme.nota}"/>
+					<p:outputLabel for="comentario" value="Comentario: "/>
+					<p:inputTextarea id="comentario" value="#{filmeBean.filme.comentario}"/>
+					
+					<h:outputLabel value="Ator"/>
+					<h:selectOneMenu >
+						<f:selectItem itemLabel="Selecione um ator" noSelectionOption="true" />
+						<f:selectItems itemValue="#{ator.id}" itemLabel="#{ator.nome}" var="ator" value="#{atorBean.atores}"/>
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Genero"/>
+					<h:selectOneMenu >
+						<f:selectItem itemLabel="Selecione um genero" noSelectionOption="true" />
+						<f:selectItems itemValue="#{genero.id}" itemLabel="#{genero.descricaoGenero}" var="genero" value="#{generoBean.generos}"/>
+					</h:selectOneMenu>
+					
+					<p:commandButton value="Cadastrar" action="#{filmeBean.cadastrarFilme()}" ajax="false"/>
+				</h:panelGrid>
+			</p:fieldset>
+			<br/>
+			<p:commandButton value="Listar" action="#{filmeBean.listarTodos()}" ajax="false"/><br/><br/>
+			<p:dataTable var="filme" value="#{filmeBean.filmes}">
+			    <p:column headerText="Titulo">
+			        <h:outputText value="#{filme.titulo}" />
+			    </p:column>
+			    <p:column headerText="Duracao">
+			        <h:outputText value="#{filme.duracao}" />
+			    </p:column>
+			    <p:column headerText="Data de lancamento">
+			        <h:outputText value="#{filme.datadLancamento}" />
+			    </p:column>
+			    <p:column headerText="Faixa etaria">
+			        <h:outputText value="#{filme.faixaEtaria}" />
+			    </p:column>
+			    <p:column headerText="Nota">
+			        <h:outputText value="#{filme.nota}" />
+			    </p:column>
+			    <p:column headerText="Comentario">
+			        <h:outputText value="#{filme.comentario}" />
+			    </p:column>
+			    <p:column headerText="Deletar">
+			        <p:commandButton value="Excluir" action="#{filmeBean.excluir(filme.id)}" ajax="false"/>
+			    </p:column>
+			</p:dataTable>
+			
+		</h:form>
+	</h:body>
+
+</html>
